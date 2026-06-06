@@ -5,3 +5,7 @@ Aplicación web interna para administrar el catálogo de productos
 ## Modelo de Datos
 
 [Modelo Entidad-Relación](./docs/Tablas.md)
+
+## Requisitos del Sistema
+
+[Requerimientos Funcionales](./docs/Requisitos_Funcionales.md)
