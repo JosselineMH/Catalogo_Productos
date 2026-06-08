@@ -16,4 +16,6 @@ RF-07: El sistema debe permitir relacionar una o varias categorías existentes a
 
 RF-08: El sistema debe permitir registrar categorías de productos.
 
-RF-09: El sistema debe permitir consultar las categorías disponibles.
+RF-09: El sistema debe permitir modificar la información de las categorías.
+
+RF-10: El sistema debe permitir consultar las categorías disponibles.

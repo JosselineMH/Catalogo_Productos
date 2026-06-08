@@ -3,14 +3,14 @@
 # Tablas
 
 - Producto
-- Categoría
+- Categoria
 - Producto_Categoria
 - Rol
 - Usuario
 
 ## Producto
 
-| id_producto |
+| codigo_producto |
 | --- |
 | nombre |
 | descripcion |
@@ -29,7 +29,7 @@
 
 ## Producto_Categoria
 
-| id_producto |
+| codigo_producto |
 | --- |
 | id_categoria |
 
