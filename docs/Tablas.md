@@ -10,8 +10,9 @@
 
 ## Producto
 
-| codigo_producto |
+| id_producto |
 | --- |
+| codigo |
 | nombre |
 | descripcion |
 | precio |
@@ -29,7 +30,7 @@
 
 ## Producto_Categoria
 
-| codigo_producto |
+| id_producto |
 | --- |
 | id_categoria |
 
