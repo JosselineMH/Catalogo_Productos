@@ -1,6 +1,6 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import { ConflictException, Injectable, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { ILike, Repository } from 'typeorm';
 
 import { Producto } from './entities/producto.entity';
 import { CreateProductoDto } from './dto/create-producto.dto';
@@ -29,4 +29,13 @@ export class ProductosService {
     findAll(){
         return this.productoRepository.find();
     }
+
+    findByNombre(nombre: string){
+        return this.productoRepository.find({
+            where: { 
+                nombre: ILike(`%${nombre}%`),
+            },
+        });
+    }
+
 }

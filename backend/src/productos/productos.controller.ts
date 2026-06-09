@@ -18,4 +18,9 @@ export class ProductosController {
     findAll(){
         return this.productosService.findAll();
     }
+
+    @Get(':nombre')
+    findByNombre(@Param('nombre') nombre: string){
+        return this.productosService.findByNombre(nombre);
+    }
 }
