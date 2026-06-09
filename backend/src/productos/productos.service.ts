@@ -64,6 +64,32 @@ export class ProductosService {
         return productosConCategorias;
     }
 
+    async findOne(id: string){
+        const producto = await this.productoRepository.findOne({
+            where: { id_producto: id },
+        });
+
+        if(!producto){
+            throw new NotFoundException('Producto no encontrado');
+        }
+
+        const relaciones = await this.productoCategoriaRepository.find({
+            where: { id_producto: producto.id_producto },
+            relations: {
+                categoria: true,
+            }
+        });
+
+        return {
+            ...producto,
+            categorias: relaciones.map((relacion) => ({
+                id_categoria: relacion.categoria.id_categoria,
+                nombre: relacion.categoria.nombre,
+            })),
+        };
+
+    }
+
     findByNombre(nombre: string){
         return this.productoRepository.find({
             where: { 
@@ -88,9 +114,25 @@ export class ProductosService {
         if (codigoExistente && codigoExistente.id_producto !== id) {
             throw new ConflictException('Ya existe un producto con ese código');
         }
+        
+        const { categoriasIds, ...productoData } = updateProductoDto;
+        Object.assign(producto, productoData);
 
-        Object.assign(producto, updateProductoDto);
-        return this.productoRepository.save(producto);
+        const productoActualizado = this.productoRepository.save(producto);
+
+        await this.productoCategoriaRepository.delete({ id_producto: id });
+
+
+        const nuevasRelaciones = categoriasIds.map(id_categoria => 
+            this.productoCategoriaRepository.create({
+                id_producto: id,
+                id_categoria: id_categoria,
+            }),
+        );
+
+        await this.productoCategoriaRepository.save(nuevasRelaciones);
+
+        return { message: `Producto ${producto.codigo} - ${producto.nombre} actualizado exitosamente` };
     }
 
     async delete(id: string){
