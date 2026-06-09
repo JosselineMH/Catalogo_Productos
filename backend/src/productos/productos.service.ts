@@ -43,8 +43,25 @@ export class ProductosService {
 
     } 
 
-    findAll(){
-        return this.productoRepository.find();
+    async findAll(){
+        const productos = await this.productoRepository.find();
+
+        const productosConCategorias = await Promise.all(
+            productos.map(async producto => {
+                const relaciones = await this.productoCategoriaRepository.find({
+                    where: { id_producto: producto.id_producto },
+                    relations: {
+                        categoria: true,
+                    }
+                });
+
+                return {
+                    ...producto,
+                    categorias: relaciones.map((relacion) => relacion.categoria.nombre),
+                };
+            }),
+        );
+        return productosConCategorias;
     }
 
     findByNombre(nombre: string){
