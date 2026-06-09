@@ -102,6 +102,7 @@ export class ProductosService {
             throw new NotFoundException('Producto no encontrado');
         }
 
+        await this.productoCategoriaRepository.delete({ id_producto: id });
         await this.productoRepository.delete(id);
         return { message: `Producto ${producto.nombre} eliminado exitosamente` };
     }
