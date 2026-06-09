@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { ILike, Repository } from 'typeorm';
 
 import { Producto } from './entities/producto.entity';
+import { ProductoCategoria } from './entities/producto-categoria.entity';
 import { CreateProductoDto } from './dto/create-producto.dto';
 import { UpdateProductoDto } from './dto/update-producto.dto';
 
@@ -11,6 +12,9 @@ export class ProductosService {
     constructor(
         @InjectRepository(Producto)
         private readonly productoRepository: Repository<Producto>,
+
+        @InjectRepository(ProductoCategoria)
+        private readonly productoCategoriaRepository: Repository<ProductoCategoria>,
     ){}
 
     async create(createProductoDto: CreateProductoDto){
@@ -22,8 +26,21 @@ export class ProductosService {
             throw new ConflictException('Ya existe un producto con ese código');
         }
 
-        const producto = this.productoRepository.create(createProductoDto);
-        return this.productoRepository.save(producto);  
+        const { categoriasIds, ...productoData } = createProductoDto;
+        const producto = this.productoRepository.create(productoData);
+        const productoGuardado = await this.productoRepository.save(producto);
+
+        const relaciones = categoriasIds.map(id_categoria => 
+            this.productoCategoriaRepository.create({
+                id_producto: productoGuardado.id_producto,
+                id_categoria,
+            }),
+        );
+
+        await this.productoCategoriaRepository.save(relaciones);
+        
+        return { ...productoGuardado, categoriasIds };
+
     } 
 
     findAll(){

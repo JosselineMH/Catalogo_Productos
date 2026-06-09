@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsNumber, IsString, IsPositive } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsString, IsPositive, IsArray, ArrayNotEmpty, IsUUID } from 'class-validator';
 
 export class CreateProductoDto {
     @IsString()
@@ -17,4 +17,9 @@ export class CreateProductoDto {
     @IsPositive()
     @IsNotEmpty()
     precio!: number;
+
+    @IsArray()
+    @ArrayNotEmpty()
+    @IsUUID('all', { each: true })
+    categoriasIds!: string[];
 }
