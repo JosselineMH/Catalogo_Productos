@@ -23,4 +23,15 @@ export class ProductosController {
     findByNombre(@Param('nombre') nombre: string){
         return this.productosService.findByNombre(nombre);
     }
+
+    @Put(':id')
+    update(@Param('id') id: string, 
+    @Body() updateProductoDto: UpdateProductoDto){
+        return this.productosService.update(id, updateProductoDto);
+    }
+
+    @Delete(':id')
+    delete(@Param('id') id: string){
+        return this.productosService.delete(id);
+    }
 }
