@@ -3,9 +3,11 @@ import './Dashboard.css';
 type DashboardProps = {
   correoElectronico: string;
   onLogout: () => void;
+  abrirCategorias: () => void;
 };
 
-export function Dashboard({ correoElectronico, onLogout }: DashboardProps) {
+
+export function Dashboard({ correoElectronico, onLogout, abrirCategorias }: DashboardProps) {
     return (
         <main className="dashboard-page">
         <section className="dashboard-panel">
@@ -27,7 +29,7 @@ export function Dashboard({ correoElectronico, onLogout }: DashboardProps) {
                 <p>Gestionar el catálogo de productos disponibles.</p>
             </button>
 
-            <button className="dashboard-option" type="button">
+            <button className="dashboard-option" type="button" onClick={abrirCategorias}>
                 <span>Categorías</span>
                 <p>Registrar y modificar categorías de productos.</p>
             </button>
