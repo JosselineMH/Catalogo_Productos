@@ -4,10 +4,11 @@ type DashboardProps = {
   correoElectronico: string;
   onLogout: () => void;
   abrirCategorias: () => void;
+  abrirProductos: () => void;
 };
 
 
-export function Dashboard({ correoElectronico, onLogout, abrirCategorias }: DashboardProps) {
+export function Dashboard({ correoElectronico, onLogout, abrirCategorias, abrirProductos }: DashboardProps) {
     return (
         <main className="dashboard-page">
         <section className="dashboard-panel">
@@ -24,7 +25,7 @@ export function Dashboard({ correoElectronico, onLogout, abrirCategorias }: Dash
             </header>
 
             <section className="dashboard-menu">
-            <button className="dashboard-option" type="button">
+            <button className="dashboard-option" type="button" onClick={abrirProductos}>
                 <span>Productos</span>
                 <p>Gestionar el catálogo de productos disponibles.</p>
             </button>

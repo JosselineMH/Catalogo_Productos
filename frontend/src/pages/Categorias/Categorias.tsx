@@ -59,7 +59,7 @@ export function Categorias({ volverAlMenu }: CategoriasProps) {
         const respuesta = await fetch('http://localhost:3000/categorias', {
             method: 'POST',
             headers: {
-            'Content-Type': 'application/json',
+                'Content-Type': 'application/json',
             },
             body: JSON.stringify({
             nombre: nuevoNombre,
@@ -155,9 +155,9 @@ export function Categorias({ volverAlMenu }: CategoriasProps) {
             <section className="categorias-panel">
                 <div className="categorias-header">
                     <div>
-                    <span className="categorias-title">CATEGORÍAS</span>
-                    <h1>Gestión de categorías</h1>
-                    <p>Consulta, registra y modifica categorías</p>
+                        <span className="categorias-title">CATEGORÍAS</span>
+                        <h1>Gestión de categorías</h1>
+                        <p>Consulta, registra y modifica categorías</p>
                     </div>
 
                     <button type="button" className="volver-button" onClick={volverAlMenu}>
@@ -166,11 +166,7 @@ export function Categorias({ volverAlMenu }: CategoriasProps) {
                 </div>
 
                 <div className="tabla-actions">
-                    <button
-                        type="button"
-                        className="agregar-button"
-                        onClick={() => setModalCrearAbierto(true)}
-                    >
+                    <button type="button" className="agregar-button" onClick={() => setModalCrearAbierto(true)}>
                         Agregar categoría
                     </button>
                 </div>
@@ -187,17 +183,17 @@ export function Categorias({ volverAlMenu }: CategoriasProps) {
                     <tbody>
                     {categorias.map((categoria) => (
                         <tr key={categoria.id_categoria}>
-                        <td>{categoria.nombre}</td>
-                        <td>{categoria.descripcion}</td>
-                        <td>
-                            <button
-                                type="button"
-                                className="table-button"
-                                onClick={() => abrirModalModificar(categoria)}
-                                >
-                                Modificar
-                            </button>
-                        </td>
+                            <td>{categoria.nombre}</td>
+                            <td>{categoria.descripcion}</td>
+                            <td>
+                                <button
+                                    type="button"
+                                    className="table-button"
+                                    onClick={() => abrirModalModificar(categoria)}
+                                    >
+                                    Modificar
+                                </button>
+                            </td>
                         </tr>
                     ))}
                     </tbody>
@@ -250,43 +246,39 @@ export function Categorias({ volverAlMenu }: CategoriasProps) {
                 {modalCrearAbierto && (
                     <div className="modal-backdrop">
                         <div className="modal-panel">
-                        <div className="modal-header">
-                            <h2>Agregar categoría</h2>
-                            <button
-                            type="button"
-                            className="modal-close"
-                            onClick={() => setModalCrearAbierto(false)}
-                            >
-                            ×
-                            </button>
-                        </div>
-
-                        <form className="modal-form" onSubmit={guardarNuevaCategoria}>
-                            <div className="modal-field">
-                            <label htmlFor="nuevoNombre">Nombre</label>
-                            <input
-                                id="nuevoNombre"
-                                type="text"
-                                value={nuevoNombre}
-                                onChange={(e) => setNuevoNombre(e.target.value)}
-                                placeholder="Nombre de la categoría"
-                            />
+                            <div className="modal-header">
+                                <h2>Agregar categoría</h2>
+                                <button type="button" className="modal-close"onClick={() => setModalCrearAbierto(false)}>
+                                ×
+                                </button>
                             </div>
 
-                            <div className="modal-field">
-                            <label htmlFor="nuevaDescripcion">Descripción</label>
-                            <textarea
-                                id="nuevaDescripcion"
-                                value={nuevaDescripcion}
-                                onChange={(e) => setNuevaDescripcion(e.target.value)}
-                                placeholder="Descripción de la categoría"
-                            />
-                            </div>
+                            <form className="modal-form" onSubmit={guardarNuevaCategoria}>
+                                <div className="modal-field">
+                                    <label htmlFor="nuevoNombre">Nombre</label>
+                                    <input
+                                        id="nuevoNombre"
+                                        type="text"
+                                        value={nuevoNombre}
+                                        onChange={(e) => setNuevoNombre(e.target.value)}
+                                        placeholder="Nombre de la categoría"
+                                    />
+                                </div>
 
-                            <button type="submit" className="guardar-button">
-                            Registrar categoría
-                            </button>
-                        </form>
+                                <div className="modal-field">
+                                    <label htmlFor="nuevaDescripcion">Descripción</label>
+                                    <textarea
+                                        id="nuevaDescripcion"
+                                        value={nuevaDescripcion}
+                                        onChange={(e) => setNuevaDescripcion(e.target.value)}
+                                        placeholder="Descripción de la categoría"
+                                    />
+                                </div>
+
+                                <button type="submit" className="guardar-button">
+                                    Registrar categoría
+                                </button>
+                            </form>
                         </div>
                     </div>
                 )}
