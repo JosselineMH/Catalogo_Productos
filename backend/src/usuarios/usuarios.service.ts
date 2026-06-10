@@ -1,4 +1,4 @@
-import { Injectable, ConflictException } from '@nestjs/common';
+import { Injectable, ConflictException, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Usuario } from './entities/usuario.entity';
@@ -30,7 +30,7 @@ export class UsuariosService {
         });
 
         if(!rol) {
-            throw new ConflictException('El rol especificado no existe');
+            throw new NotFoundException('El rol especificado no existe');
         }
 
         const usuario = this.usuarioRepository.create(createUsuarioDto);
