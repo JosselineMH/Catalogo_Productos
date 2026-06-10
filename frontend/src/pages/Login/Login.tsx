@@ -10,8 +10,12 @@ type RespuestaLogin = {
     };
 };
 
+type LoginProps = {
+  alIniciarSesion: (correoElectronico: string) => void;
+};
 
-export function Login() {
+
+export function Login({ alIniciarSesion }: LoginProps) {
     const [correoElectronico, setCorreoElectronico] = useState('');
     const [contrasena, setContrasena] = useState('');
     const [cargando, setCargando] = useState(false);
@@ -63,6 +67,8 @@ export function Login() {
                 title: loginData.mensaje,
                 text: `Has iniciado sesión como ${loginData.usuario.correo_electronico}`,
                 confirmButtonText: 'Continuar',
+            }).then(() => {
+                alIniciarSesion(loginData.usuario.correo_electronico);
             });
         }
 
