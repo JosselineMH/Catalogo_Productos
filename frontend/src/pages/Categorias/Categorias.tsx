@@ -22,11 +22,19 @@ export function Categorias({ volverAlMenu }: CategoriasProps) {
     const [nombreEditando, setNombreEditando] = useState('');
     const [descripcionEditando, setDescripcionEditando] = useState('');
 
+    const [modalCrearAbierto, setModalCrearAbierto] = useState(false);
+    const [nuevoNombre, setNuevoNombre] = useState('');
+    const [nuevaDescripcion, setNuevaDescripcion] = useState('');
+
     async function obtenerCategorias() {
         const respuesta = await fetch('http://localhost:3000/categorias');
         const data = await respuesta.json();
         setCategorias(data);
     }
+
+    useEffect(() => {
+        obtenerCategorias();
+    }, []);
 
     function abrirModalModificar(categoria: Categoria) {
         setCategoriaEditando(categoria);
@@ -34,9 +42,56 @@ export function Categorias({ volverAlMenu }: CategoriasProps) {
         setDescripcionEditando(categoria.descripcion);
     }
 
-    useEffect(() => {
+    async function guardarNuevaCategoria(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault();
+
+        if (!nuevoNombre.trim() || !nuevaDescripcion.trim()) {
+            Swal.fire({
+            icon: 'warning',
+            title: 'Campos requeridos',
+            text: 'Debes ingresar nombre y descripción',
+            confirmButtonText: 'Aceptar',
+            });
+
+            return;
+        }
+
+        const respuesta = await fetch('http://localhost:3000/categorias', {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+            nombre: nuevoNombre,
+            descripcion: nuevaDescripcion,
+            }),
+        });
+
+        const data = await respuesta.json();
+
+        if (!respuesta.ok) {
+            Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: data.message || 'No se pudo registrar la categoría',
+            confirmButtonText: 'Aceptar',
+            });
+
+            return;
+        }
+
+        Swal.fire({
+            icon: 'success',
+            title: 'Categoría registrada',
+            text: 'La categoría se agregó correctamente',
+            confirmButtonText: 'Aceptar',
+        });
+
+        setNuevoNombre('');
+        setNuevaDescripcion('');
+        setModalCrearAbierto(false);
         obtenerCategorias();
-    }, []);
+    }
 
 
     async function guardarCambiosCategoria(e: React.FormEvent<HTMLFormElement>) {
@@ -106,7 +161,17 @@ export function Categorias({ volverAlMenu }: CategoriasProps) {
                     </div>
 
                     <button type="button" className="volver-button" onClick={volverAlMenu}>
-                    Volver
+                            Regresar al menú
+                    </button>
+                </div>
+
+                <div className="tabla-actions">
+                    <button
+                        type="button"
+                        className="agregar-button"
+                        onClick={() => setModalCrearAbierto(true)}
+                    >
+                        Agregar categoría
                     </button>
                 </div>
 
@@ -179,7 +244,52 @@ export function Categorias({ volverAlMenu }: CategoriasProps) {
                         </form>
                         </div>
                     </div>
-                    )}
+                )}
+
+
+                {modalCrearAbierto && (
+                    <div className="modal-backdrop">
+                        <div className="modal-panel">
+                        <div className="modal-header">
+                            <h2>Agregar categoría</h2>
+                            <button
+                            type="button"
+                            className="modal-close"
+                            onClick={() => setModalCrearAbierto(false)}
+                            >
+                            ×
+                            </button>
+                        </div>
+
+                        <form className="modal-form" onSubmit={guardarNuevaCategoria}>
+                            <div className="modal-field">
+                            <label htmlFor="nuevoNombre">Nombre</label>
+                            <input
+                                id="nuevoNombre"
+                                type="text"
+                                value={nuevoNombre}
+                                onChange={(e) => setNuevoNombre(e.target.value)}
+                                placeholder="Nombre de la categoría"
+                            />
+                            </div>
+
+                            <div className="modal-field">
+                            <label htmlFor="nuevaDescripcion">Descripción</label>
+                            <textarea
+                                id="nuevaDescripcion"
+                                value={nuevaDescripcion}
+                                onChange={(e) => setNuevaDescripcion(e.target.value)}
+                                placeholder="Descripción de la categoría"
+                            />
+                            </div>
+
+                            <button type="submit" className="guardar-button">
+                            Registrar categoría
+                            </button>
+                        </form>
+                        </div>
+                    </div>
+                )}
             </section>
         </main>
         );

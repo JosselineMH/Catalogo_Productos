@@ -84,25 +84,6 @@
         background-color: #dff8e4;
     }
 
-    .volver-button {
-        border: 0;
-        border-radius: 8px;
-        padding: 11px 16px;
-        background-color: #007c06;
-        color: #ffffff;
-        font-size: 14px;
-        font-weight: 700;
-        cursor: pointer;
-    }
-
-    .volver-button:hover {
-        background: linear-gradient(150deg, #009607, #8cff57, #009607);
-    }
-
-    .volver-button:active {
-        transform: scale(0.99);
-    }
-
 
     .modal-backdrop {
         position: fixed;
@@ -193,4 +174,53 @@
 
     .guardar-button:hover {
         background: linear-gradient(150deg, #009607, #8cff57, #009607);
+    }
+
+    .tabla-actions {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 28px;
+    }
+
+    .categorias-table {
+        width: 100%;
+        margin-top: 14px;
+        border-collapse: collapse;
+        font-size: 14px;
+    }
+
+    .agregar-button {
+        border: 0;
+        border-radius: 8px;
+        padding: 11px 16px;
+        background-color: #007c06;
+        color: #ffffff;
+        font-size: 14px;
+        font-weight: 700;
+        cursor: pointer;
+    }
+
+    .agregar-button:hover {
+        background: linear-gradient(150deg, #009607, #8cff57, #009607);
+    }
+
+    .volver-button {
+        border: 1px solid #d6e0ee;
+        border-radius: 8px;
+        padding: 10px 15px;
+        background-color: #ffffff;
+        color: #334155;
+        font-size: 14px;
+        font-weight: 700;
+        cursor: pointer;
+    }
+
+    .volver-button:hover {
+        background-color: #f8fafc;
+        border-color: #007c06;
+    }
+
+    .volver-button:active,
+    .agregar-button:active {
+        transform: scale(0.99);
     }
