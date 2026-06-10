@@ -37,6 +37,7 @@ export function Productos({ volverAlMenu }: ProductosProps) {
     const [categoriasSeleccionadas, setCategoriasSeleccionadas] = useState<string[]>([]);
 
     const [modalEditarAbierto, setModalEditarAbierto] = useState(false);
+    const [idProductoEditando, setIdProductoEditando] = useState('');
     const [codigoModificado, setCodigoModificado] = useState('');
     const [nombreModificado, setNombreModificado] = useState('');
     const [descripcionModificada, setDescripcionModificada] = useState('');
@@ -61,6 +62,7 @@ export function Productos({ volverAlMenu }: ProductosProps) {
     }, []);
 
     function abrirModalEditar(producto: Producto) {
+        setIdProductoEditando(producto.id_producto);
         setCodigoModificado(producto.codigo);
         setNombreModificado(producto.nombre);
         setDescripcionModificada(producto.descripcion); 
@@ -192,10 +194,91 @@ export function Productos({ volverAlMenu }: ProductosProps) {
         obtenerProductos();
     }
 
-    async function modificarProducto() {
-       
-    }
+    async function modificarProducto(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault();
 
+        if (
+            !codigoModificado.trim() ||
+            !nombreModificado.trim() ||
+            !descripcionModificada.trim() ||
+            !precioModificado.trim() ||
+            categoriasModificadas.length === 0
+        ) {
+            Swal.fire({
+            icon: 'warning',
+            title: 'Campos requeridos',
+            text: 'Todos los campos son obligatorios',
+            confirmButtonText: 'Aceptar',
+            });
+            return;
+        }
+
+        const precioNumero = Number(precioModificado);
+
+        if (Number.isNaN(precioNumero)) {
+            Swal.fire({
+            icon: 'warning',
+            title: 'Precio incorrecto',
+            text: 'El precio debe ser un número válido',
+            confirmButtonText: 'Aceptar',
+            });
+            return;
+        }
+
+        if (precioNumero <= 0) {
+            Swal.fire({
+            icon: 'warning',
+            title: 'Precio incorrecto',
+            text: 'El precio debe ser mayor que cero',
+            confirmButtonText: 'Aceptar',
+            });
+            return;
+        }
+
+        const respuesta = await fetch(
+            `http://localhost:3000/productos/${idProductoEditando}`,
+            {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                codigo: codigoModificado,
+                nombre: nombreModificado,
+                descripcion: descripcionModificada,
+                precio: precioNumero,
+                categoriasIds: categoriasModificadas,
+            }),
+            },
+        );
+
+        const data = await respuesta.json();
+
+        if (!respuesta.ok) {
+            const mensaje = Array.isArray(data.message)
+            ? data.message.join('. ')
+            : data.message;
+
+            Swal.fire({
+            icon: 'error',
+            title: 'No se pudo modificar',
+            text: mensaje || 'Ocurrió un error al modificar el producto',
+            confirmButtonText: 'Aceptar',
+            });
+            return;
+        }
+
+        await Swal.fire({
+            icon: 'success',
+            title: 'Producto modificado',
+            text: 'Los cambios se guardaron correctamente',
+            confirmButtonText: 'Aceptar',
+        });
+
+        setModalEditarAbierto(false);
+        setIdProductoEditando('');
+        obtenerProductos();
+    }
 
     return(
         <main className="productos-page">
@@ -372,7 +455,7 @@ export function Productos({ volverAlMenu }: ProductosProps) {
                                 </button>
                             </div>
 
-                            <form className="modal-form" onSubmit={() => {}}>
+                            <form className="modal-form" onSubmit={(modificarProducto)}>
                                 <div className="modal-field">
                                     <label htmlFor="codigoModificado">Código</label>
                                     <input
