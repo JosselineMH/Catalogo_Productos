@@ -10,7 +10,7 @@ import {
 @Entity('producto')
 export class Producto {
     @PrimaryGeneratedColumn('uuid')
-    id_producto!: string;
+    id_producto!: string
 
     @Column()
     codigo!: string
@@ -25,8 +25,8 @@ export class Producto {
     precio!: number
 
     @CreateDateColumn()
-    create_at!: Date;
+    create_at!: Date
 
     @UpdateDateColumn()
-    update_at!: Date;
+    update_at!: Date
 }
