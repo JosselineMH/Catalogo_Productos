@@ -133,7 +133,22 @@ export function Productos({ volverAlMenu }: ProductosProps) {
 
     async function eliminarProducto(id_producto: string) {
         const nombreProducto = productos.find((p) => p.id_producto === id_producto)?.nombre || 'El producto';
-        const respuesta = await fetch(`http://localhost:3000/productos/${id_producto}`, {
+
+        const confirmacion = await Swal.fire({
+            icon: 'warning',
+            title: '¿Eliminar producto?',
+            text: `¿Estás seguro de que deseas eliminar ${nombreProducto} del catálogo? Esta acción no se puede deshacer.`,
+            showCancelButton: true,
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar',
+        });
+
+        if (!confirmacion.isConfirmed) {
+            return;
+        }
+
+        const respuesta = await fetch(`http://localhost:3000/productos/${id_producto}`, 
+        {
             method: 'DELETE',
         });
 
