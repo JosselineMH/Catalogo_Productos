@@ -36,6 +36,13 @@ export function Productos({ volverAlMenu }: ProductosProps) {
     const [categorias, setCategorias] = useState<Categoria[]>([]);
     const [categoriasSeleccionadas, setCategoriasSeleccionadas] = useState<string[]>([]);
 
+    const [modalEditarAbierto, setModalEditarAbierto] = useState(false);
+    const [codigoModificado, setCodigoModificado] = useState('');
+    const [nombreModificado, setNombreModificado] = useState('');
+    const [descripcionModificada, setDescripcionModificada] = useState('');
+    const [precioModificado, setPrecioModificado] = useState('');
+    const [categoriasModificadas, setCategoriasModificadas] = useState<string[]>([]);
+
     async function obtenerProductos() {
         const respuesta = await fetch('http://localhost:3000/productos');
         const data = await respuesta.json();
@@ -53,6 +60,19 @@ export function Productos({ volverAlMenu }: ProductosProps) {
         obtenerCategorias();
     }, []);
 
+    function abrirModalEditar(producto: Producto) {
+        setCodigoModificado(producto.codigo);
+        setNombreModificado(producto.nombre);
+        setDescripcionModificada(producto.descripcion); 
+        setPrecioModificado(producto.precio.toString());
+        setCategoriasModificadas(
+            categorias
+                .filter((cat) => producto.categorias.includes(cat.nombre))
+                .map((cat) => cat.id_categoria)
+        );
+        setModalEditarAbierto(true);
+    }
+    
 
     async function crearProducto(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
@@ -172,7 +192,9 @@ export function Productos({ volverAlMenu }: ProductosProps) {
         obtenerProductos();
     }
 
-
+    async function modificarProducto() {
+       
+    }
 
 
     return(
@@ -219,6 +241,7 @@ export function Productos({ volverAlMenu }: ProductosProps) {
                                     <button
                                         type = "button"
                                         className="editarP-button"
+                                        onClick={() => abrirModalEditar(producto)}
                                         >
                                         Modficar
                                     </button>
@@ -323,6 +346,104 @@ export function Productos({ volverAlMenu }: ProductosProps) {
                                             />
                                             <span>{categoria.nombre}</span>
                                         </label>
+                                        ))}
+                                    </div>
+                                </div>
+                                <button type="submit" className="guardar-button">
+                                    Guardar
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                )}
+
+                {/* Modal para editar producto */} 
+                {modalEditarAbierto && (
+                    <div className="modal-backdrop">
+                        <div className="modal-panel">
+                            <div className="modal-header">
+                                <h2>Editar Producto</h2>
+                                <button
+                                type="button"
+                                className="modal-close"
+                                onClick={() => setModalEditarAbierto(false)}
+                                >
+                                ×
+                                </button>
+                            </div>
+
+                            <form className="modal-form" onSubmit={() => {}}>
+                                <div className="modal-field">
+                                    <label htmlFor="codigoModificado">Código</label>
+                                    <input
+                                        id="codigoModificado"
+                                        type="text"
+                                        value={codigoModificado}
+                                        onChange={(e) => setCodigoModificado(e.target.value)}
+                                    />
+                                </div>
+
+                                <div className="modal-field">
+                                    <label htmlFor="nombreModificado">Nombre</label>
+                                    <input
+                                        id="nombreModificado"
+                                        type="text"
+                                        value={nombreModificado}
+                                        onChange={(e) => setNombreModificado(e.target.value)}
+                                    />
+                                </div>
+
+                                <div className="modal-field">
+                                    <label htmlFor="descripcionModificada">Descripción</label>
+                                    <textarea
+                                        id="descripcionModificada"
+                                        value={descripcionModificada}
+                                        onChange={(e) => setDescripcionModificada(e.target.value)}
+                                    />
+                                </div>
+
+                                <div className="modal-field">
+                                    <label htmlFor="precioModificado">Precio</label>
+                                    <input
+                                        id="precioModificado"
+                                        type="text"
+                                        inputMode="decimal"
+                                        value={precioModificado}
+                                        onChange={(e) => setPrecioModificado(e.target.value)}
+                                    />
+                                </div>
+
+                                <div className="modal-field">
+                                    <label htmlFor="categoriasModificadas">Categorías</label>
+                                    <div className="categorias-options">
+                                        {categorias.map((categoria) => (
+                                            <label
+                                                className="categoria-option"
+                                                key={categoria.id_categoria}
+                                            >
+                                                <input
+                                                    type="checkbox"
+                                                    value={categoria.id_categoria}
+                                                    checked={categoriasModificadas.includes(
+                                                        categoria.id_categoria,
+                                                    )}
+                                                    onChange={(e) => {
+                                                        if (e.target.checked) {
+                                                            setCategoriasModificadas([
+                                                                ...categoriasModificadas,
+                                                                categoria.id_categoria,
+                                                            ]);
+                                                        } else {
+                                                            setCategoriasModificadas(
+                                                                categoriasModificadas.filter(
+                                                                    (id) => id !== categoria.id_categoria,
+                                                                ),
+                                                            );
+                                                        }
+                                                    }}
+                                                />
+                                                <span>{categoria.nombre}</span>
+                                            </label>
                                         ))}
                                     </div>
                                 </div>
