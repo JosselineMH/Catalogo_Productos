@@ -7,19 +7,19 @@ import { Productos } from './pages/Productos/Productos';
 
 function App() {
   const [correoElectronico, setCorreoElectronico] = useState(
-    localStorage.getItem('correoElectronico') || ''
+    sessionStorage.getItem('correoElectronico') || ''
   );
   const [pantalla, setPantalla] = useState<'menu' | 'categorias' | 'productos'>('menu');
 
   function manejarInicioSesion(correoElectronico: string) {
     setCorreoElectronico(correoElectronico);
-    localStorage.setItem('correoElectronico', correoElectronico);
+    sessionStorage.setItem('correoElectronico', correoElectronico);
     setPantalla('menu');
   }
 
   function manejarCierreSesion() {
     setCorreoElectronico('');
-    localStorage.removeItem('correoElectronico');
+    sessionStorage.removeItem('correoElectronico');
     setPantalla('menu');
   }
 
