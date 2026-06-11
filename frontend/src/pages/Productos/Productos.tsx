@@ -44,6 +44,8 @@ export function Productos({ volverAlMenu }: ProductosProps) {
     const [precioModificado, setPrecioModificado] = useState('');
     const [categoriasModificadas, setCategoriasModificadas] = useState<string[]>([]);
 
+    const [productoBuscado, setProductoBuscado] = useState('');
+
     async function obtenerProductos() {
         const respuesta = await fetch('http://localhost:3000/productos');
         const data = await respuesta.json();
@@ -280,6 +282,35 @@ export function Productos({ volverAlMenu }: ProductosProps) {
         obtenerProductos();
     }
 
+    async function buscarProducto(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault();
+
+        const nombreBuscado = productoBuscado.trim();
+
+        if(!nombreBuscado) {
+            obtenerProductos();
+            return;
+        }
+        
+        const respuesta = await fetch(
+            `http://localhost:3000/productos/buscar?nombre=${encodeURIComponent(nombreBuscado)}`,
+        );
+
+
+        const data = await respuesta.json();
+
+        if (!respuesta.ok) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'No se pudo realizar la búsqueda',
+            });
+            return;
+        }
+
+        setProductos(data);
+    }
+
     return(
         <main className="productos-page">
             <section className="productos-panel">
@@ -296,6 +327,26 @@ export function Productos({ volverAlMenu }: ProductosProps) {
                 </div>
 
                 <div className= "table-actions">
+                    <form className="productos-buscar" onSubmit={buscarProducto}>
+                        <input
+                            type="search"
+                            value={productoBuscado}
+                            onChange={(e) => setProductoBuscado(e.target.value)}
+                            placeholder="Buscar por nombre"
+                        />
+
+                        <button type="submit">Buscar</button>
+                        <button
+                            type="button"
+                            onClick={() => {
+                                setProductoBuscado('');
+                                obtenerProductos();
+                            }}
+                        >
+                            Limpiar Búsqueda
+                        </button>
+                    </form>
+
                     <button type="button" className="agregarP-button" onClick={() => setModalCrearAbierto(true)}>
                         Agregar Producto
                     </button>
