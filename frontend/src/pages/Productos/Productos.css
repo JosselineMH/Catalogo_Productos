@@ -1,0 +1,325 @@
+    .productos-page {
+        min-height: 100vh;
+        padding: 28px;
+        background: linear-gradient(
+            135deg,
+            #e8f3ff 0%,
+            #f7fbff 45%,
+            #fff4e6 100%
+    );
+    }
+
+    .productos-panel {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 34px;
+        border: 1px solid #e2e8f0;
+        border-radius: 14px;
+        background-color: #ffffff;
+        box-shadow: 0 18px 40px rgba(15, 23, 42, 0.14);
+    }
+
+    .productos-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    .productos-title {
+        display: inline-block;
+        margin-bottom: 14px;
+        padding: 6px 10px;
+        border-radius: 999px;
+        background-color: #e8f3ff;
+        color: #006308;
+        font-size: 13px;
+        font-weight: 700;
+    }
+
+    .productos-header h1 {
+        margin: 0 0 8px;
+        color: #007c06;
+        font-size: 32px;
+    }
+
+    .productos-header p {
+        margin: 0;
+        color: #64748b;
+    }
+
+    .table-actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        margin-top: 28px;
+    }
+
+    .productos-buscar {
+        display: flex;
+        gap: 8px;
+    }
+
+    .productos-buscar input {
+        width: 260px;
+        padding: 10px 12px;
+        border: 1px solid #cbd5e1;
+        border-radius: 8px;
+    }
+
+    .productos-buscar button {
+        border: 1px solid #d6e0ee;
+        border-radius: 8px;
+        padding: 10px 13px;
+        background-color: #ffffff;
+        color: #334155;
+        font-weight: 700;
+        cursor: pointer;
+    }
+
+    .productos-buscar button:hover {
+        border-color: #007c06;
+        background-color: #f7fff8;
+    }
+
+    .agregarP-button {
+        border: 0;
+        border-radius: 8px;
+        padding: 11px 16px;
+        background-color: #007c06;
+        color: #ffffff;
+        font-size: 14px;
+        font-weight: 700;
+        cursor: pointer;
+    }
+
+    .agregarP-button:hover,
+    .guardar-button:hover {
+        background: linear-gradient(150deg, #009607, #8cff57, #009607);
+    }
+
+    .productos-table {
+        width: 100%;
+        margin-top: 14px;
+        border-collapse: collapse;
+        font-size: 14px;
+    }
+
+    .productos-table th,
+    .productos-table td {
+        padding: 13px 12px;
+        border-bottom: 1px solid #e2e8f0;
+        text-align: left;
+        vertical-align: top;
+    }
+
+    .productos-table th {
+        background-color: #f8fafc;
+        color: #00200e;
+        font-weight: 700;
+    }
+
+    .productos-table td {
+        color: #334155;
+    }
+
+    .editarP-button,
+    .eliminarP-button {
+        border: 0;
+        border-radius: 7px;
+        padding: 8px 11px;
+        font-size: 13px;
+        font-weight: 700;
+        cursor: pointer;
+    }
+
+    .editarP-button {
+        background-color: #e8f3ff;
+        color: #006308;
+    }
+
+    .editarP-button:hover {
+        background-color: #dff8e4;
+    }
+
+    .eliminarP-button {
+        background-color: #fee2e2;
+        color: #b91c1c;
+    }
+
+    .eliminarP-button:hover {
+        background-color: #fecaca;
+    }
+
+    .volver-button {
+        border: 1px solid #d6e0ee;
+        border-radius: 8px;
+        padding: 10px 15px;
+        background-color: #ffffff;
+        color: #334155;
+        font-size: 14px;
+        font-weight: 700;
+        cursor: pointer;
+    }
+
+    .volver-button:hover {
+        border-color: #007c06;
+        background-color: #f8fafc;
+    }
+
+    .modal-backdrop {
+        position: fixed;
+        inset: 0;
+        z-index: 10;
+        display: grid;
+        place-items: center;
+        padding: 20px;
+        background-color: rgba(15, 23, 42, 0.45);
+    }
+
+    .modal-panel {
+        width: 100%;
+        max-width: 500px;
+        max-height: 90vh;
+        overflow-y: auto;
+        padding: 28px;
+        border-radius: 14px;
+        background-color: #ffffff;
+        box-shadow: 0 18px 40px rgba(15, 23, 42, 0.24);
+    }
+
+    .modal-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 22px;
+    }
+
+    .modal-header h2 {
+        margin: 0;
+        color: #007c06;
+        font-size: 24px;
+    }
+
+    .modal-close {
+        border: 0;
+        border-radius: 8px;
+        padding: 7px 10px;
+        background-color: #e8f3ff;
+        color: #006308;
+        font-size: 18px;
+        font-weight: 700;
+        cursor: pointer;
+    }
+
+    .modal-form {
+        display: grid;
+        gap: 16px;
+    }
+
+    .modal-field {
+        display: grid;
+        gap: 7px;
+    }
+
+    .modal-field label {
+        color: #334155;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    .modal-field input,
+    .modal-field textarea {
+        width: 100%;
+        padding: 12px 14px;
+        border: 1px solid #cbd5e1;
+        border-radius: 8px;
+        background-color: #f8fafc;
+        color: #00200e;
+        font-size: 15px;
+    }
+
+    .modal-field input:focus,
+    .modal-field textarea:focus {
+        outline: none;
+        border-color: #007c06;
+        box-shadow: 0 0 0 3px rgba(0, 124, 6, 0.12);
+    }
+
+    .modal-field textarea {
+        min-height: 90px;
+        resize: vertical;
+    }
+
+    .categorias-options {
+        display: grid;
+        gap: 8px;
+        max-height: 150px;
+        overflow-y: auto;
+        padding: 10px;
+        border: 1px solid #cbd5e1;
+        border-radius: 8px;
+        background-color: #f8fafc;
+    }
+
+    .categoria-option {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        padding: 8px;
+        border-radius: 6px;
+        color: #334155;
+        cursor: pointer;
+    }
+
+    .categoria-option:hover {
+        background-color: #e8f3ff;
+    }
+
+    .categoria-option input {
+        width: 16px;
+        height: 16px;
+        accent-color: #007c06;
+        cursor: pointer;
+    }
+
+    .guardar-button {
+        border: 0;
+        border-radius: 8px;
+        padding: 13px 14px;
+        background-color: #007c06;
+        color: #ffffff;
+        font-size: 15px;
+        font-weight: 700;
+        cursor: pointer;
+    }
+
+    button:active {
+        transform: scale(0.99);
+    }
+
+    @media (max-width: 760px) {
+        .productos-page {
+            padding: 16px;
+        }
+
+        .productos-panel {
+            padding: 22px;
+            overflow-x: auto;
+        }
+
+        .productos-header {
+            flex-direction: column;
+        }
+
+        .volver-button {
+            width: 100%;
+        }
+
+        .productos-table {
+            min-width: 850px;
+        }
+    }

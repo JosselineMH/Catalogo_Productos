@@ -10,6 +10,4 @@ Aplicación web interna para administrar el catálogo de productos
 
 [Requerimientos Funcionales](./docs/Requisitos_Funcionales.md)
 
-## Requisitos del Sistema
-
 [Requerimientos No Funcionales](./docs/Requisitos_NoFuncionales.md)

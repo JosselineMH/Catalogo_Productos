@@ -1,0 +1,120 @@
+    .dashboard-page {
+        min-height: 100vh;
+        background: linear-gradient(135deg, #e8f3ff 0%, #f7fbff 45%, #fff4e6 100%);
+        padding: 28px;
+    }
+
+    .dashboard-panel {
+        width: 100%;
+        max-width: 900px;
+        margin: 0 auto;
+        background-color: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 14px;
+        padding: 34px;
+        box-shadow: 0 18px 40px rgba(15, 23, 42, 0.14);
+    }
+
+    .dashboard-header {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        align-items: flex-start;
+        margin-bottom: 32px;
+    }
+
+    .dashboard-title {
+        display: inline-block;
+        margin-bottom: 14px;
+        padding: 6px 10px;
+        border-radius: 999px;
+        background-color: #e8f3ff;
+        color: #006308;
+        font-size: 13px;
+        font-weight: 700;
+    }
+
+    .dashboard-header h1 {
+        margin: 0 0 8px;
+        color: #007c06;
+        font-size: 32px;
+        line-height: 1.2;
+    }
+
+    .dashboard-header p {
+        margin: 0;
+        color: #64748b;
+        font-size: 15px;
+    }
+
+    .logout-button {
+        border: 0;
+        border-radius: 8px;
+        padding: 11px 14px;
+        background-color: #fff4e6;
+        color: #92400e;
+        font-size: 14px;
+        font-weight: 700;
+        cursor: pointer;
+    }
+
+    .logout-button:hover {
+        background-color: #ffedd5;
+    }
+
+    .dashboard-menu {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 18px;
+    }
+
+    .dashboard-option {
+        text-align: left;
+        border: 1px solid #dbeafe;
+        border-radius: 14px;
+        padding: 24px;
+        background-color: #f8fafc;
+        cursor: pointer;
+    }
+
+    .dashboard-option:hover {
+        border-color: #007c06;
+        background-color: #f7fff8;
+        box-shadow: 0 12px 26px rgba(0, 124, 6, 0.12);
+    }
+
+    .dashboard-option span {
+        display: block;
+        margin-bottom: 8px;
+        color: #00200e;
+        font-size: 21px;
+        font-weight: 700;
+    }
+
+    .dashboard-option p {
+        margin: 0;
+        color: #64748b;
+        font-size: 15px;
+    }
+
+    @media (max-width: 700px) {
+    .dashboard-page {
+        padding: 20px;
+    }
+
+    .dashboard-panel {
+        padding: 26px;
+    }
+
+    .dashboard-header {
+        display: grid;
+    }
+
+    .dashboard-menu {
+        grid-template-columns: 1fr;
+    }
+
+    .logout-button {
+        width: 100%;
+    }
+    }

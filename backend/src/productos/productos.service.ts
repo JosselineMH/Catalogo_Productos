@@ -90,12 +90,34 @@ export class ProductosService {
 
     }
 
-    findByNombre(nombre: string){
-        return this.productoRepository.find({
-            where: { 
-                nombre: ILike(`%${nombre}%`),
+    async findByNombre(nombre: string){
+        const productos = await this.productoRepository.find({
+            where: {
+            nombre: ILike(`%${nombre}%`),
             },
         });
+
+        const productosConCategorias = await Promise.all(
+            productos.map(async (producto) => {
+            const relaciones = await this.productoCategoriaRepository.find({
+                where: {
+                id_producto: producto.id_producto,
+                },
+                relations: {
+                categoria: true,
+                },
+            });
+
+            return {
+                ...producto,
+                categorias: relaciones.map(
+                (relacion) => relacion.categoria.nombre,
+                ),
+            };
+        }),
+    );
+
+    return productosConCategorias;
     }
 
     async update(id: string, updateProductoDto: UpdateProductoDto){
