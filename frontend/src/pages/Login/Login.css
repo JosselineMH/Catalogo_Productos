@@ -1,0 +1,103 @@
+    .login-page {
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        background:
+            linear-gradient(135deg, #e8f3ff 0%, #f7fbff 45%, #fff4e6 100%);
+        padding: 20px;
+    }
+
+    .login-panel {
+        width: 100%;
+        max-width: 430px;
+        background-color: #ffffff;
+        border-radius: 14px;
+        padding: 36px;
+        box-shadow: 0 18px 40px rgba(15, 23, 42, 0.14);
+        border: 1px solid #e2e8f0;
+        text-align: left;
+    }
+
+    .login-header {
+        margin-bottom: 28px;
+    }
+
+    .login-title {
+        display: inline-block;
+        margin-bottom: 14px;
+        padding: 6px 10px;
+        border-radius: 999px;
+        background-color: #e8f3ff;
+        color: #006308;
+        font-size: 13px;
+        font-weight: 700;
+    }
+
+    .login-header h1 {
+        margin: 0 0 8px;
+        color: #007c06;
+        font-size: 30px;
+        line-height: 1.2;
+    }
+
+    .login-header p {
+        margin: 0;
+        color: #64748b;
+        font-size: 15px;
+    }
+
+    .login-form {
+        display: grid;
+        gap: 16px;
+    }
+
+    .login-field {
+        display: grid;
+        gap: 7px;
+    }
+
+    .login-field label {
+        color: #334155;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    .login-field input {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 12px 14px;
+        border: 1px solid #cbd5e1;
+        border-radius: 8px;
+        background-color: #f8fafc;
+        color: #00200e;
+        font-size: 15px;
+        
+    }
+
+    .login-field input:focus {
+        outline: none;
+        border-color: #00581b;
+        background-color: #ffffff;
+        box-shadow: 0 0 0 3px rgba(0, 48, 20, 0.14);
+    }
+
+    .login-form .login-button {
+        margin-top: 8px;
+        width: 100%;
+        border: 0;
+        border-radius: 8px;
+        padding: 13px 14px;
+        background: #007c06;
+        color: #ffffff;
+        font-size: 15px;
+        font-weight: 700;
+        cursor: pointer;
+    }
+
+    .login-form .login-button:hover {
+        background: linear-gradient(150deg, #009607, #8cff57, #009607);
+    }
+
+    .login-button:active {
+        transform: scale(0.99);
+    }
